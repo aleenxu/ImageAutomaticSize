@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">  
+<html>  
+ <head>  
+  <title> New Document </title>  
+  <meta name="Generator" content="EditPlus">  
+  <meta name="Author" content="">  
+  <meta name="Keywords" content="">  
+  <meta name="Description" content="">  
+  <style>
+  .img-box{
+    box-sizing:border-box;
+    padding:2px;
+    border:1px #333 solid;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+  }
+  </style>
+ </head>  
+ 
+ <body>
+      <!--当高大于宽的图片效果  -->
+     <div class="img-box" style="width:200px;height:200px;">
+        <img  src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1527493933311&di=27bd37c75f9beadc404c13f9cc5931da&imgtype=0&src=http%3A%2F%2Fcdnq.duitang.com%2Fuploads%2Fitem%2F201506%2F09%2F20150609104846_BuxTy.jpeg"/>       
+    </div>
+     <!-- 当宽大于高的图片效果  -->
+     <div class="img-box" style="width:400px;height:300px;">
+        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1527489134013&di=dda623969c0778bc628efd59e62e09dd&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fe1fe9925bc315c602050233b87b1cb1348547718.jpg"/>       
+    </div>
+     <!-- 当宽和高都接近父层大小时图片效果  -->
+     <div class="img-box" style="width:800px;height:500px;">
+        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1527489134013&di=dda623969c0778bc628efd59e62e09dd&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fe1fe9925bc315c602050233b87b1cb1348547718.jpg"/>       
+    </div> 
+    <!-- 当图片小于容器时 -->
+     <div class="img-box" style="width:400px;height:300px;">
+        <img src="https://ss0.bdstatic.com/6ONWsjip0QIZ8tyhnq/it/u=3545401083,2251952841&fm=77&w_h=121_75&cs=2008984878,1171842780"/>       
+    </div> 
+    <!-- 单独调用 -->
+    <!-- <div class="img-box" style="width:500px;height:400px;">
+        <img onload="loadImage(this,'400','200')" src="http://img05.tooopen.com/images/20140728/sy_67611752335.jpg"/>       
+    </div>  -->
+    <script language="javascript">  
+    /* 
+    imgSelf    图片自身
+    setWidth   想设置的图片宽
+    setHeight  想设置的图片高
+    */
+    function loadImage(imgSelf,setWidth,setHeight){  
+            var image=new Image();  //创建一个新的img
+            image.src=imgSelf.src;  // 指定图片路径
+            if(image.width>image.height){//当 宽>高时 ==> 以宽为标准  
+                if(image.width>setWidth){  // 当图片宽大于设置的宽时
+                    imgSelf.width=setWidth;  // 图片的宽 取设置的宽
+                    imgSelf.height=(image.height*setWidth)/image.width;  // 图片的高 取
+                }else{  
+                    imgSelf.width=image.width;   
+                    imgSelf.height=image.height;  
+                }  
+            }else{// 高>宽时 ==> 以高为标准  
+                if(image.height>setHeight){  
+                    imgSelf.height=setHeight;  
+                    imgSelf.width=(image.width*setHeight)/image.height;  
+                }else{  
+                    imgSelf.width=image.width;   
+                    imgSelf.height=image.height;  
+                }  
+            }  
+        }
+        // 页面加载完成重设所有当前页面图片所对应父元素的大小  
+        window.onload = function(){
+            var images = document.getElementsByTagName("img");
+            for(var i=0;i<images.length;i++){
+                loadImage(images[i],images[i].parentElement.offsetWidth-4,images[i].parentElement.offsetHeight-4);
+                // 此处的 -4 指的是对应父元素的 padding 值
+            }
+        }
+    </script> 
+ </body>  
+</html>
